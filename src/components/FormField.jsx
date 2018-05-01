@@ -13,10 +13,12 @@ export type Props = {
   label: string,
   fieldId: string,
   placeholder: string,
-  children: React.Node,
+  children?: React.Node,
   required: boolean,
   validator: Function,
-  onStateChanged: Function
+  onStateChanged: Function,
+  minStrength?: number,
+  thresholdLength?: number,
 };
 
 export default class FormField extends React.Component {
