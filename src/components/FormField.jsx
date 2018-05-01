@@ -1,4 +1,6 @@
 // @flow
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/no-unused-prop-types */
 
 import * as React from 'react';
 
@@ -29,7 +31,7 @@ export default class FormField extends React.Component {
   }
 
   props: Props;
-  hasChanged = (e) => {
+  hasChanged = (e: any) => {
     e.preventDefault();
 
     const {
@@ -48,7 +50,7 @@ export default class FormField extends React.Component {
     } else if (typeof validator === 'function') {
       try {
         validator(value);
-      } catch (e) {
+      } catch (err) {
         errors = [...errors, e.message];
       }
     }
@@ -73,6 +75,7 @@ export default class FormField extends React.Component {
     } = this.props;
 
     const hasErrors = errors.length > 0;
+    // eslint-disable-next-line no-nested-ternary
     const controlClass = ['form-control', dirty ?
       hasErrors ? 'is-invalid' : 'is-valid'
       : ''].join(' ').trim();
