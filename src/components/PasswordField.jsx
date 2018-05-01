@@ -8,6 +8,7 @@ import FormField, { type Props } from './FormField';
 type State = {
   password: string,
   strength: number,
+  value: string,
 };
 
 export default class PasswordField extends React.Component {
@@ -22,10 +23,13 @@ export default class PasswordField extends React.Component {
     this.minStrength = typeof minStrength === 'number'
       ? Math.max(Math.min(minStrength, 4), 0) : 3;
 
-    this.tresholdLength = typeof thresholdLength === 'number'
+    this.thresholdLength = typeof thresholdLength === 'number'
       ? Math.max(thresholdLength, 7) : 7;
   }
+
   props: Props;
+  minStrength: number;
+  thresholdLength: number;
 
   stateChanged = (state: State) => {
     this.setState({
@@ -61,14 +65,14 @@ export default class PasswordField extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="positive-relative">
+        <div className="position-relative">
           <FormField
             type="password"
             validator={this.validatePasswordStrong}
             onStateChanged={this.stateChanged}
             {...restProps}
           >
-            <span className="d-block from-hint"> Parce que les hackers c'est des connards, il faut un bon mot de passe. Donc 7 caracteres minimum (et evitez les qwertyuiop pls).</span>
+            <span className="d-block form-hint"> Parce que les hackers c&quotest des connards, il faut un bon mot de passe. Donc 7 caracteres minimum (et evitez les qwertyuiop pls).</span>
             {children}
             <div className={strengthClass}>
               <div className="strength-meter-fill" data-strength={strength} />

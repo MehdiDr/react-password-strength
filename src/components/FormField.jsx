@@ -11,16 +11,17 @@ type State = {
 };
 
 export type Props = {
-  type: "text" | "password",
+  type?: "text" | "password",
   label: string,
   fieldId: string,
   placeholder: string,
-  children?: React.Node,
+  value?: string,
+  minStrength?: number;
+  thresholdLength?: number;
   required: boolean,
-  validator: Function,
+  children?: React.Node,
+  validator?: Function,
   onStateChanged: Function,
-  minStrength?: number,
-  thresholdLength?: number,
 };
 
 export default class FormField extends React.Component {
@@ -37,10 +38,11 @@ export default class FormField extends React.Component {
     const {
       label,
       required = false,
-      validator = (f: Function) => f,
+      validator = (f: string) => f,
       onStateChanged = (f: Object) => f,
     } = this.props;
-    const value = e.target.value;
+
+    const value: string = e.target.value;
     const isEmpty = value.length === 0;
     const requiredMissing = this.state.dirty && required && isEmpty;
     let errors = [];
@@ -84,22 +86,23 @@ export default class FormField extends React.Component {
       <React.Fragment>
         <div className="form-group px-3 pb-2">
           <div className="d-flex flex-row justify-content-between align-items-center">
-            <label htmlFor={fieldId} className="control-label">{label}</label>
-            {
-              hasErrors &&
-              <div className="error form-hint font-weight-bold text-right m-0 mb-2">
-                { errors[0] }
-              </div>
-            }
-            { children }
-            <input
-              type={type}
-              className={controlClass}
-              id={fieldId}
-              placeholder={placeholder}
-              value={value}
-              onChange={this.hasChanged}
-            />
+            <label htmlFor={fieldId} className="control-label">{label}
+              {
+                hasErrors &&
+                <div className="error form-hint font-weight-bold text-right m-0 mb-2">
+                  { errors[0] }
+                </div>
+              }
+              { children }
+              <input
+                type={type}
+                className={controlClass}
+                id={fieldId}
+                placeholder={placeholder}
+                value={value}
+                onChange={this.hasChanged}
+              />
+            </label>
           </div>
         </div>
       </React.Fragment>

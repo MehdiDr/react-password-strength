@@ -10,7 +10,7 @@ type State = {
   fullname: boolean,
   email: boolean,
   password: boolean,
-  errors?: Array<any>,
+  errors: Array<any>,
 };
 
 export default class JoinForm extends Component {
@@ -18,7 +18,6 @@ export default class JoinForm extends Component {
     fullname: false,
     email: false,
     password: false,
-    errors: [],
   }
 
   fieldStateChanged = (field: string) =>
