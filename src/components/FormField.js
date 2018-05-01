@@ -1,11 +1,11 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import * as React from 'react';
 
-
-type FormField = {
-  errors: Array<any>,
-  value: string
+type State = {
+  value: string,
+  dirty: boolean,
+  errors: Array<string>
 };
 
 type Props = {
@@ -13,16 +13,15 @@ type Props = {
   label: string,
   fieldId: string,
   placeholder: string,
-  dirty: Boolean,
-  required?: Boolean,
+  children: React.Node,
+  required?: boolean,
   validator?: Function,
   onStateChanged?: Function
 };
 
-export default class FormField extends Component {
+export default class FormField extends React.Component {
   props: Props;
-  FormField: FormField;
-  state = {
+  state: State = {
     value: '',
     dirty: false,
     errors: []
@@ -31,7 +30,7 @@ export default class FormField extends Component {
   hasChanged = (e: Event) => {
     e.preventDefault();
 
-    const { label, required = false, validator = (f: Function) => f, onStateChanged = (f: Function) => f } = this.props;
+    const { label, required = false, validator = (f: Function) => f, onStateChanged = (f: Object) => f } = this.props;
     const value = e.target.value;
     const isEmpty = value.length === 0;
     const requiredMissing = this.state.dirty && required && isEmpty;
@@ -55,7 +54,7 @@ export default class FormField extends Component {
       }),
       () => onStateChanged(this.state)
     );
-
+  }
     render() {
       const { value, dirty, errors } = this.state;
       const { type, label, fieldId, placeholder, children } = this.props;
@@ -66,7 +65,7 @@ export default class FormField extends Component {
       : '' ].join(' ').trim();
 
       return (
-        <Fragment>
+        <React.Fragment>
           <div className="form-group px-3 pb-2">
             <div className="d-flex flex-row justify-content-between align-items-center">
               <label htmlFor={fieldId} className="control-label">{label}</label>
@@ -87,9 +86,8 @@ export default class FormField extends Component {
               />
             </div>
           </div>
-        </Fragment>
+        </React.Fragment>
       )
     }
   }
-}
 
