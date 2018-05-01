@@ -2,7 +2,7 @@
 
 import React from 'react';
 import JoinForm from './components/JoinForm';
-import './App.css';
+import './App.scss';
 
 const App = () => (
   <div className="main-container d-table position-absolute m-auto">
