@@ -21,7 +21,9 @@ export default class JoinForm extends Component {
     errors: [],
   }
 
-  fieldStateChanged = (field: string) => (state: State) => this.setState({ [field]: state.errors.length === 0 });
+  fieldStateChanged = (field: string) =>
+    (state: State) =>
+      this.setState({ [field]: state.errors.length === 0 });
 
   emailChanged = this.fieldStateChanged('email');
   fullnameChanged = this.fieldStateChanged('fullname');

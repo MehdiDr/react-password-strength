@@ -35,8 +35,8 @@ export default class PasswordField extends React.Component {
   };
 
   validatePasswordStrong = (value: string) => {
-    if (value.length <= this.thresholdLength) throw new Error('Password is short');
-    if (zxcvbn(value).score < this.minStrength) throw new Error('Password is weak');
+    if (value.length <= this.thresholdLength) throw new Error('Le mot de passe est trop court !');
+    if (zxcvbn(value).score < this.minStrength) throw new Error('Le mot de passe est faible comme toi !');
   };
 
   render() {
@@ -53,8 +53,9 @@ export default class PasswordField extends React.Component {
     const passwordStrong = strength >= this.minStrength;
     const passwordLong = passwordLength > this.thresholdLength;
 
-    const counterClass = ['badge badge-pill', passwordLong ? 
-      passwordStrong ? 'badge-success' : 'badge-warning' 
+    // eslint-disable-next-line no-nested-ternary
+    const counterClass = ['badge badge-pill', passwordLong ?
+      passwordStrong ? 'badge-success' : 'badge-warning'
       : 'badge-danger'].join(' ').trim();
     const strengthClass = ['strength-meter mt-2', passwordLength > 0 ? 'visible' : 'invisible'].join(' ').trim();
 
@@ -65,7 +66,7 @@ export default class PasswordField extends React.Component {
             type="password"
             validator={this.validatePasswordStrong}
             onStateChanged={this.stateChanged}
-            {...restProps} 
+            {...restProps}
           >
             <span className="d-block from-hint"> Parce que les hackers c'est des connards, il faut un bon mot de passe. Donc 7 caracteres minimum (et evitez les qwertyuiop pls).</span>
             {children}
@@ -74,7 +75,8 @@ export default class PasswordField extends React.Component {
             </div>
           </FormField>
           <div className="position-absolute password-count mx-3">
-            <span className={counterClass}> {passwordLength ? passwordLong ? `${this.thresholdLength}+` : passwordLength : '' } </span>
+            {/* eslint-disable-next-line no-nested-ternary */}
+            <span className={counterClass}> { passwordLength ? passwordLong ? `${this.thresholdLength}+` : passwordLength : '' } </span>
           </div>
         </div>
       </React.Fragment>
