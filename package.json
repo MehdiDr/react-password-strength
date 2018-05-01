@@ -12,11 +12,15 @@
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "babel src/ -d lib/",
+    "start:js": "react-scripts start",
+    "build:js": "react-scripts build",
+    "start": "npm-run-all -p watch:css start:js",
+    "build": "npm-run-all build:css build:js",
     "prepublish": "yarn run build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch:css": "npm run build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
