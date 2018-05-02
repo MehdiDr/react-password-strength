@@ -7865,7 +7865,7 @@ module.exports = feedback;
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = register;
 /* unused harmony export unregister */
-/* eslint-disable */// In production, we register a service worker to serve assets from local cache.
+// In production, we register a service worker to serve assets from local cache.
 // This lets the app load faster on subsequent visits in production, and gives
 // it offline capabilities. However, it also means that developers (and users)
 // will only see deployed updates on the "N+1" visit to a page, since previously
@@ -7897,4 +7897,4 @@ registerValidSW(swUrl);}}).catch(function(){console.log('No internet connection 
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=main.c55d41df.js.map
+//# sourceMappingURL=main.ee307cc6.js.map
